@@ -8,10 +8,7 @@ import com.demo.dao.entity.Address;
 import com.demo.dao.entity.ReportCard;
 import com.demo.dao.entity.Student;
 import com.demo.dao.entity.Subject;
-import com.demo.dao.repository.AddressRepository;
-import com.demo.dao.repository.ReportCardRepository;
-import com.demo.dao.repository.StudentRepository;
-import com.demo.dao.repository.SubjectRepository;
+import com.demo.dao.repository.*;
 import com.demo.service.IStudentService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,6 +38,9 @@ public class StudentServiceImpl implements IStudentService {
 
     @Autowired
     SubjectRepository subjectRepository;
+
+    @Autowired
+    private IRedisRepository redisRepository;
 
     @Autowired
     ReportCardRepository reportCardRepository;
@@ -87,16 +87,24 @@ public class StudentServiceImpl implements IStudentService {
             subjectRepository.save(subject);
             subjects.add(subject);
         }
+        redisRepository.add(Student.serialVersionUID+"-"+student.getRollNo(),student);
+        redisRepository.add(Student.serialVersionUID+"-"+student.getRollNo(),student);
         return String.valueOf(student.getRollNo());
     }
 
     @Override
-    @Transactional
     public StudentSro fetchStudentDetails(long rollNo) {
-
-        Student student= studentRepository.findStudentByrollNo(rollNo);
-        StudentSro studentSro=convertorService.getStudentSROFromStudent(student);
-        return studentSro;
+        StudentSro studentSro=null;
+        Student student= (Student) redisRepository.find(Student.serialVersionUID+"-"+rollNo);
+        if(student==null) {
+            student = studentRepository.findStudentByrollNo(rollNo);
+            redisRepository.add(Student.serialVersionUID+"-"+student.getRollNo(),student);
+            studentSro = convertorService.getStudentSROFromStudent(student);
+        }
+        else {
+            return convertorService.getStudentSROFromStudent(student);
+        }
+        return null;
     }
 
     @Override
