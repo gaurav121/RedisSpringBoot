@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
 
 @Table( name = "student")
 @Entity
@@ -24,9 +25,8 @@ public class Student implements Serializable {
     @Column(name = "standard")
     private String standard;
 
-//    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "student_id")
-//    @JoinColumn(name="student_mark_id")
-//    private List<StudentMarks> marks;
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "student")
+    private List<StudentMarks> marks;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
@@ -36,8 +36,6 @@ public class Student implements Serializable {
 
     @Column(name = "updated_at")
     private Timestamp               updatedAt;
-
-
 
     public long getId() {
         return id;
@@ -71,13 +69,13 @@ public class Student implements Serializable {
         this.standard = standard;
     }
 
-//    public List<StudentMarks> getMarks() {
-//        return marks;
-//    }
-//
-//    public void setMarks(List<StudentMarks> marks) {
-//        this.marks = marks;
-//    }
+    public List<StudentMarks> getMarks() {
+        return marks;
+    }
+
+    public void setMarks(List<StudentMarks> marks) {
+        this.marks = marks;
+    }
 
     public Address getAddress() {
         return address;

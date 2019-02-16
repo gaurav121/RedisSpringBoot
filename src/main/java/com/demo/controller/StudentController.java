@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 @RestController
-@RequestMapping("/v1/student/") public class RedisController {
+@RequestMapping("/v1/student/") public class StudentController {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RedisController.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(StudentController.class);
 
     @Autowired
     private IStudentService studentService;
