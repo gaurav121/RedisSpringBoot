@@ -11,7 +11,6 @@ import com.demo.dao.entity.ReportCard;
 import com.demo.dao.entity.Student;
 import com.demo.dao.entity.Subject;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 

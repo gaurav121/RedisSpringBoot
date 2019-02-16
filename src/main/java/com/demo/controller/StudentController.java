@@ -37,6 +37,19 @@ import java.util.List;
         return studentService.fetchStudentDetails(rollNo);
     }
 
+    @ApiOperation(value = "Fetch Student Info")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Success", response = StudentSro.class),
+            @ApiResponse(code = 500, message = "Something went wrong", response = String.class)
+    })
+    @RequestMapping(value = "fetch_students", method = RequestMethod.GET)
+    public List<StudentSro> fetchAllStudents(){
+        LOGGER.info(String.format("Fetching all Student details"));
+
+        return studentService.fetchStudentDetails();
+    }
+
+
     @ApiOperation(value = "Add Student Info")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success", response = String.class),
