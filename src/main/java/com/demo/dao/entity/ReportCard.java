@@ -2,6 +2,7 @@ package com.demo.dao.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Table(name = "report_card")
 @Entity
@@ -12,8 +13,13 @@ public class ReportCard {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "subject_name", updatable = false)
-    private String name;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "student_id")
+    private Student student;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL,mappedBy = "reportCard")
+    private List<Subject> subject;
 
     @Basic(optional = false)
     @Column(name = "created_at", updatable = false)
@@ -23,7 +29,15 @@ public class ReportCard {
     @Column(name = "updated_at", updatable = false)
     private Timestamp updatedAt;
 
-    public long getId() {
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+     public long getId() {
         return id;
     }
 
@@ -31,13 +45,6 @@ public class ReportCard {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public Timestamp getCreatedAt() {
         return createdAt;
@@ -53,5 +60,13 @@ public class ReportCard {
 
     public void setUpdatedAt(Timestamp updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public List<Subject> getSubject() {
+        return subject;
+    }
+
+    public void setSubject(List<Subject> subject) {
+        this.subject = subject;
     }
 }

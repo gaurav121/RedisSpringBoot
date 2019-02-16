@@ -1,18 +1,14 @@
 package com.demo.dao.entity;
 
-import com.demo.base.service.object.AddressSro;
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.util.List;
-import java.util.Set;
 
-@Table( name = "student")
+@Table(name = "student")
 @Entity
 public class Student implements Serializable {
 
-    public static long serialVersionUID= 8218789000137281434L;
+    public static long serialVersionUID = 8218789000137281434L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,22 +16,33 @@ public class Student implements Serializable {
 
     @Column(name = "roll_no")
     private Long rollNo;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "standard")
     private String standard;
-
-    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "student")
-    private List<StudentMarks> marks;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id")
     private Address address;
+
     @Column(name = "created_at", updatable = false)
     private Timestamp createdAt;
 
     @Column(name = "updated_at")
-    private Timestamp               updatedAt;
+    private Timestamp updatedAt;
+
+    @OneToOne(fetch = FetchType.LAZY, mappedBy = "student")
+    private ReportCard reportCard;
+
+    public ReportCard getReportCard() {
+        return reportCard;
+    }
+
+    public void setReportCard(ReportCard reportCard) {
+        this.reportCard = reportCard;
+    }
 
     public long getId() {
         return id;
@@ -44,6 +51,7 @@ public class Student implements Serializable {
     public void setId(long id) {
         this.id = id;
     }
+
 
     public Long getRollNo() {
         return rollNo;
@@ -67,14 +75,6 @@ public class Student implements Serializable {
 
     public void setStandard(String standard) {
         this.standard = standard;
-    }
-
-    public List<StudentMarks> getMarks() {
-        return marks;
-    }
-
-    public void setMarks(List<StudentMarks> marks) {
-        this.marks = marks;
     }
 
     public Address getAddress() {
