@@ -1,4 +1,6 @@
 DROP table if exists `address`;
+DROP table if exists `subject`;
+DROP table if exists `student_mark`;
 DROP table if exists `student`;
 
 
