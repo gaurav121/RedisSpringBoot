@@ -5,6 +5,7 @@ import com.demo.entity.Address;
 import com.demo.entity.ReportCard;
 import com.demo.entity.Student;
 import com.demo.entity.Subject;
+import com.demo.exception.StudentNotFoundException;
 import com.demo.object.AddressSro;
 import com.demo.object.MarksSro;
 import com.demo.object.StudentSro;
@@ -97,6 +98,8 @@ public class StudentServiceImpl implements IStudentService {
         Student student= (Student) redisRepository.find(Student.serialVersionUID+"-"+rollNo);
         if(student==null) {
             student = studentRepository.findStudentByrollNo(rollNo);
+            if(student==null)
+                throw new StudentNotFoundException("Student not found","004");
             redisRepository.add(Student.serialVersionUID+"-"+student.getRollNo(),student);
             studentSro = convertorService.getStudentSROFromStudent(student);
         }
