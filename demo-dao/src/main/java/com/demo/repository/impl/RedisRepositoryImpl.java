@@ -33,9 +33,9 @@ public class RedisRepositoryImpl<K,V> implements IRedisRepository<K,V> {
         hashOperations.put(KEY, k, v);
     }
 
-    @Override
-    public void delete(K k) {
-     //   hashOperations.delete(KEY, id);
+    @Autowired
+    public void delete(final K id) {
+        hashOperations.delete(KEY, id);
     }
 
     @Override
