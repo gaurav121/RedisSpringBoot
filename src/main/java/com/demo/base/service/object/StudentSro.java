@@ -10,8 +10,15 @@ public class StudentSro implements Serializable {
     private Long rollNo;
     private String name;
     private String standard;
-    private List<String> subjects;
     private AddressSro address;
+    private List<MarksSro> marksSros;
+
+    public List<MarksSro> getMarksSros() {
+        return marksSros;
+    }
+    public void setMarksSros(List<MarksSro> marksSros) {
+        this.marksSros = marksSros;
+    }
 
     public Long getRollNo() {
         return rollNo;
@@ -37,14 +44,6 @@ public class StudentSro implements Serializable {
         this.standard = standard;
     }
 
-    public List<String> getSubjects() {
-        return subjects;
-    }
-
-    public void setSubjects(List<String> subjects) {
-        this.subjects = subjects;
-    }
-
     public AddressSro getAddress() {
         return address;
     }
@@ -59,7 +58,6 @@ public class StudentSro implements Serializable {
                 "rollNo=" + rollNo +
                 ", name='" + name + '\'' +
                 ", standard='" + standard + '\'' +
-                ", subjects=" + subjects +
                 ", address=" + address +
                 '}';
     }
