@@ -1,12 +1,13 @@
 package com.demo.dao.entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.List;
 
 @Table(name = "report_card")
 @Entity
-public class ReportCard {
+public class ReportCard implements Serializable {
     public static long  serialVersionUID= 1464417676226914623L;
 
     @Id
