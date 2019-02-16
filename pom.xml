@@ -6,7 +6,7 @@
 
     <groupId>demo.gaurav.redis</groupId>
     <artifactId>Redis</artifactId>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>demo-base</module>
