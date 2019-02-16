@@ -98,4 +98,17 @@ public class StudentServiceImpl implements IStudentService {
         StudentSro studentSro=convertorService.getStudentSROFromStudent(student);
         return studentSro;
     }
+
+    @Override
+    public List<StudentSro> fetchStudentDetails() {
+        List<Student> students=studentRepository.findAll();
+        List<StudentSro> studentSros = new ArrayList<>();
+
+        for(Student student:students){
+            StudentSro studentSro=convertorService.getStudentSROFromStudent(student);
+            studentSros.add(studentSro);
+        }
+        return studentSros;
+
+    }
 }
