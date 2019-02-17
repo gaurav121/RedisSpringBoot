@@ -119,6 +119,5 @@ public class StudentServiceImpl implements IStudentService {
             studentSros.add(studentSro);
         }
         return studentSros;
-
     }
 }
